@@ -10,9 +10,14 @@ The features which we are going to use to predict are close and volume values.
 ## REFERENCES
 
 This is the reference where I learn Deep Learning and learned how to work on this project, I also refactored the code.[Tutorial I followed](https://www.youtube.com/channel/UCfzlCWGWYyIQ0aLC5w48gBQ)
+
 Tensorflow tutorial : [Tensorflow](https://www.tensorflow.org/tutorials/)
+
 Tensorboard : [Tensorboard](https://www.tensorflow.org/guide/summaries_and_tensorboard)
+
 Tensorflow Keras : [Tensorflow keras](https://www.tensorflow.org/guide/keras)
+
 Pandas Tutorial : [Pandas](https://pandas.pydata.org/pandas-docs/stable/tutorials.html)
+
 Python Tutorial : [Python](https://www.w3schools.com/python/)
 
