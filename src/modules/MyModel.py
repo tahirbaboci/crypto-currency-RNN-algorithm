@@ -2,7 +2,7 @@
 import time
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, LSTM, BatchNormalization
+from tensorflow.keras.layers import Dense, Dropout, LSTM, CuDNNLSTM, BatchNormalization
 from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint # ModelCheckpoint always saves the best one from every epochs
 
 
@@ -17,15 +17,15 @@ NAME = f"{RATIO_TO_PREDICT}-{SEQ_LEN}-SEQ-{FUTURE_PERIOD_PREDICT}-PRED-{int(time
 def Train_model(train_x, train_y, test_x, test_y):
     model = Sequential()
     
-    model.add(LSTM(128, input_shape=(train_x.shape[1:]), return_sequences=True))
+    model.add(LSTM(128, input_shape=(train_x.shape[1:]), activation='relu', return_sequences=True))
     model.add(Dropout(0.2))
     model.add(BatchNormalization())
     
-    model.add(LSTM(128, input_shape=(train_x.shape[1:]), return_sequences=True))
+    model.add(LSTM(128, input_shape=(train_x.shape[1:]), activation='relu', return_sequences=True))
     model.add(Dropout(0.2))
     model.add(BatchNormalization())
     
-    model.add(LSTM(128, input_shape=(train_x.shape[1:])))
+    model.add(LSTM(128, input_shape=(train_x.shape[1:]), activation='relu'))
     model.add(Dropout(0.2))
     model.add(BatchNormalization())
     
@@ -42,7 +42,7 @@ def Train_model(train_x, train_y, test_x, test_y):
     
     tensorboard = TensorBoard(log_dir=f'logs/{NAME}')
     
-    filepath = "RNN_Final-{epoch:02d}-{val_acc:.2d}" # unique file name that will include the epoch and the validation acc for that epoch
+    filepath = "RNN_Final-{epoch:02d}-{val_acc:.2f}" # unique file name that will include the epoch and the validation acc for that epoch
     checkpoint = ModelCheckpoint("models/{}.model".format(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')) # saves only the best ones
     history = model.fit(
             train_x, train_y,
